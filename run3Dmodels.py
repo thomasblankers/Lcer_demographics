@@ -130,6 +130,7 @@ numpy.save("_".join(["popt_progression_1_its",prefix]), popt_progression_1_its)
 
 ####### split 2
 
+
 print("running no gene flow split 2\n\n")
 
 def progression_2 (params,ns,pts):
@@ -170,10 +171,13 @@ for i in range(n_runs):
 numpy.save("_".join(["ll_model_progression_2_its",prefix]),ll_model_progression_2_its)
 numpy.save("_".join(["popt_progression_2_its",prefix]), popt_progression_2_its)
 
-########### no gene flow
+########### gene flow
 
 
 ####### split 1
+
+print("running gene flow split 1\n\n")
+
 
 def geneflow (params,ns,pts):
   Nanc,N01,N1,N02,N2,N3,T1,T2,T3,mp0l2,m12, m23, m13 = params
@@ -206,7 +210,7 @@ popt_geneflow_its = []
 n_runs = 3
 for i in range(n_runs):
   print(f"Starting run {i+1} out of {n_runs}...")
-  p0 = Misc.perturb_params(params, fold=2, upper_bound=upper_bound, lower_bound=lower_bound)
+  p0 = Misc.perturb_params(params, fold=1, upper_bound=upper_bound, lower_bound=lower_bound)
   popt = Inference.optimize_log(p0, joint_fs, ex_geneflow, pts,lower_bound=lower_bound,upper_bound=upper_bound,verbose=len(params), maxiter=1000)
   model = ex_geneflow(popt, ns, pts)
   ll_model_geneflow_its = np.array(ll_model_geneflow_its,Inference.ll_multinom(model,joint_fs))
