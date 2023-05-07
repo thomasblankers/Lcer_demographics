@@ -180,12 +180,12 @@ print("running gene flow split 1\n\n")
 
 
 def geneflow (params,ns,pts):
-  Nanc,N01,N1,N02,N2,N3,T1,T2,T3,mp0l2,m12, m23, m13 = params
+  Nanc,N01,N1,N02,N2,N3,T1,T2,T3,m012,m12, m23, m13 = params
   xx = Numerics.default_grid(pts)
   phi = PhiManip.phi_1D(xx)
   phi = Integration.one_pop(phi, xx, T1, nu=Nanc)
   phi = PhiManip.phi_1D_to_2D(xx, phi)
-  phi = Integration.two_pops(phi, xx, T2, nu1=N01, nu2=N02, m12=m0l2, m21 = m012)
+  phi = Integration.two_pops(phi, xx, T2, nu1=N01, nu2=N02, m12=m012, m21 = m012)
   phi = PhiManip.phi_2D_to_3D_split_1(xx, phi)
   phi = Integration.three_pops(phi, xx, T3, nu1=N1, nu2=N2, nu3=N3, m12=m12, m21=m12, m23=m23, m32=m23, m13=m13, m31=m13)
   fs = Spectrum.from_phi(phi, ns, (xx,xx,xx))
